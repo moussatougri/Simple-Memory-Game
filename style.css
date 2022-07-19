@@ -1,0 +1,14 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 25% 25%;
+  gap: 10px;
+}
+
+/* Create four equal columns that sits next to each other */
+
+.grid-item img {
+  margin-top: 8px;
+  height: 20rem;
+  vertical-align: middle;
+  width: 100%;
+}
