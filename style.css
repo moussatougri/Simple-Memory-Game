@@ -1,14 +1,45 @@
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 10px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Create four equal columns that sits next to each other */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: aqua;
+}
 
-.grid-item .item {
-  margin-top: 8px;
-  height: 20rem;
-  vertical-align: middle;
+section {
+  display: grid;
+  grid-template-columns: repeat(4, 8rem);
+  grid-template-rows: repeat(4, 8rem);
+  grid-gap: 1rem;
+  perspective: 800px;
+}
+
+.grid-container {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+}
+
+.grid-item,
+.item {
+  height: 100%;
   width: 100%;
+  position: absolute;
+}
+
+.grid-item {
+  background: white;
+  backface-visibility: hidden;
+}
+
+.toggle-card {
+  transform: rotateY(180deg);
 }

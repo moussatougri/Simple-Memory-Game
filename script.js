@@ -1,5 +1,7 @@
 //Selectoren
-const gridContainer = document.querySelector(".grid-container");
+const section = document.querySelector("section");
+const playersLifeCount = document.querySelector(".player-lives-count");
+const playersLife = 6;
 
 //Memory Images
 const memoryCard = () => [
@@ -36,4 +38,31 @@ const randomMemoryCard = () => {
   return cardData;
 };
 
-randomMemoryCard();
+//Card Generator
+const cardGenerator = () => {
+  const cardData = randomMemoryCard();
+
+  //render card
+  cardData.forEach(function (img) {
+    const gridContainer = document.createElement("div");
+    gridContainer.classList.add("grid-container");
+
+    const images = document.createElement("img");
+    images.classList.add("item");
+
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("grid-item");
+
+    images.src = img.imagesSrc;
+
+    //appendChild items
+    section.appendChild(gridContainer);
+    gridContainer.appendChild(images);
+    gridContainer.appendChild(gridItem);
+
+    gridContainer.addEventListener("click", (e) => {
+      gridContainer.classList.toggle("toggle-card");
+    });
+  });
+};
+cardGenerator();
