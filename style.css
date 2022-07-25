@@ -38,6 +38,7 @@ section {
 .grid-item {
   background: white;
   backface-visibility: hidden;
+  pointer-events: none;
 }
 
 .toggle-card {

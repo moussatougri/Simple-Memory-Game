@@ -7,27 +7,35 @@ const playersLife = 6;
 const memoryCard = () => [
   {
     imagesSrc: "images/outdoor-pool-gee9ffd8ee_1920.jpg",
+    name: "outdoor pool",
   },
   {
     imagesSrc: "images/outdoor-pool-gee9ffd8ee_1920.jpg",
+    name: "outdoor pool",
   },
   {
     imagesSrc: "images/mountains-gf5569e410_1920.jpg",
+    name: "mountains",
   },
   {
     imagesSrc: "images/mountains-gf5569e410_1920.jpg",
+    name: "mountains",
   },
   {
     imagesSrc: "images/milk-g1fbcead56_1920.jpg",
+    name: "milk",
   },
   {
     imagesSrc: "images/milk-g1fbcead56_1920.jpg",
+    name: "milk",
   },
   {
     imagesSrc: "images/lemons-g047aa695f_1920.png",
+    name: "lemon",
   },
   {
     imagesSrc: "images/lemons-g047aa695f_1920.png",
+    name: "lemon",
   },
 ];
 
@@ -53,7 +61,9 @@ const cardGenerator = () => {
     const gridItem = document.createElement("div");
     gridItem.classList.add("grid-item");
 
+    //add src
     images.src = img.imagesSrc;
+    images.setAttribute("name", img.name);
 
     //appendChild items
     section.appendChild(gridContainer);
@@ -62,7 +72,26 @@ const cardGenerator = () => {
 
     gridContainer.addEventListener("click", (e) => {
       gridContainer.classList.toggle("toggle-card");
+      checkCards(e);
     });
   });
 };
 cardGenerator();
+
+//check cards
+const checkCards = (e) => {
+  const clickCard = e.target;
+  clickCard.classList.add("flipped");
+  const flippedCards = document.querySelectorAll(".flipped");
+
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      console.log("match");
+    } else {
+      console.log("wrong");
+    }
+  }
+};
