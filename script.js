@@ -84,19 +84,20 @@ const checkCards = (e) => {
   clickCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
   const toggleCard = document.querySelectorAll(".toggleCard");
+  //check if you click 2 images
   if (flippedCards.length === 2) {
     if (
       flippedCards[0].getAttribute("name") ===
       flippedCards[1].getAttribute("name")
     ) {
-      console.log("match");
+      //check if you have a match
       flippedCards.forEach((card) => {
         console.log(card);
         card.classList.remove("flipped");
         card.parentElement.style.pointerEvents = "none";
       });
     } else {
-      console.log("wrong");
+      //check if you dont have a match
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
         const parentElement = card.parentElement;
@@ -104,12 +105,13 @@ const checkCards = (e) => {
       });
       playersLife--;
       playersLifeCount.textContent = playersLife;
+      //check if you lose this game
       if (playersLife === 0) {
         restart("Try Again");
       }
     }
   }
-
+  // check if you win this game
   if (toggleCard.length === 8) {
     restart("you win");
   }
@@ -124,7 +126,6 @@ const restart = (text) => {
   cardData.forEach((item, index) => {
     card[index].classList.remove("toggleCard");
     //randomize
-
     setTimeout(() => {
       card[index].style.pointerEvents = "visible";
       faces[index].src = item.imagesSrc;
@@ -132,6 +133,7 @@ const restart = (text) => {
       section.style.pointerEvents = "visible";
     }, 1000);
   });
+  //reset life
   playersLife = 6;
   playersLifeCount.textContent = playersLife;
   setTimeout(() => window.alert(text), 100);
