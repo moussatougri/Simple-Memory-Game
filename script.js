@@ -1,7 +1,7 @@
 //Selectoren
 const section = document.querySelector("section");
 const playersLifeCount = document.querySelector(".player-lives-count");
-const playersLife = 6;
+let playersLife = 6;
 
 //Memory Images
 const memoryCard = () => [
@@ -71,7 +71,7 @@ const cardGenerator = () => {
     gridContainer.appendChild(gridItem);
 
     gridContainer.addEventListener("click", (e) => {
-      gridContainer.classList.toggle("toggle-card");
+      gridContainer.classList.toggle("toggleCard");
       checkCards(e);
     });
   });
@@ -83,15 +83,56 @@ const checkCards = (e) => {
   const clickCard = e.target;
   clickCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
-
+  const toggleCard = document.querySelectorAll(".toggleCard");
   if (flippedCards.length === 2) {
     if (
       flippedCards[0].getAttribute("name") ===
       flippedCards[1].getAttribute("name")
     ) {
       console.log("match");
+      flippedCards.forEach((card) => {
+        console.log(card);
+        card.classList.remove("flipped");
+        card.parentElement.style.pointerEvents = "none";
+      });
     } else {
       console.log("wrong");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        const parentElement = card.parentElement;
+        setTimeout(() => parentElement.classList.remove("toggleCard"), 1000);
+      });
+      playersLife--;
+      playersLifeCount.textContent = playersLife;
+      if (playersLife === 0) {
+        restart("Try Again");
+      }
     }
   }
+
+  if (toggleCard.length === 8) {
+    restart("you win");
+  }
+};
+
+//restart the Game
+const restart = (text) => {
+  let cardData = randomMemoryCard();
+  let faces = document.querySelectorAll(".item");
+  let card = document.querySelectorAll(".grid-container");
+  section.style.pointerEvents = "none";
+  cardData.forEach((item, index) => {
+    card[index].classList.remove("toggleCard");
+    //randomize
+
+    setTimeout(() => {
+      card[index].style.pointerEvents = "visible";
+      faces[index].src = item.imagesSrc;
+      faces[index].setAttribute("name", item.name);
+      section.style.pointerEvents = "visible";
+    }, 1000);
+  });
+  playersLife = 6;
+  playersLifeCount.textContent = playersLife;
+  setTimeout(() => window.alert(text), 100);
 };
